@@ -43,6 +43,8 @@ public class dHondt {
         for (int z : votes) {
             sum += z;
         }
+        //int sum2 = IntStream.of(votes).sum();
+
         for (int x : votes) {
             if (x >= threshold){
                 finalVotes.add(x);
@@ -50,19 +52,24 @@ public class dHondt {
         }
         for (int y: finalVotes) {
             System.out.println(y);
-
         }
-        //int sum2 = IntStream.of(votes).sum();
+        for (int i = 1; i < finalVotes.size(); i++) {
+            votes[i] = finalVotes.get(i);
+        }
+        for (int c : votes) {
+            System.out.println(c);
+        }
 
-        System.out.println(sum);
-
-
-        for (int i=0; i<groupCount; i++)
+        for (int i=0; i<finalVotes.size(); i++)
         {
             mandates[i] = 0;
         }
+        /*for (int i=0; i<groupCount; i++)
+        {
+            mandates[i] = 0;
+        }*/
 
-        for (int i=0; i<groupCount; i++)
+        for (int i=0; i<finalVotes.size(); i++)
         {
             calcTab[i] = votes[i];
         }
@@ -70,7 +77,7 @@ public class dHondt {
         {
 
             max = -1;
-            for (int j=0; j<groupCount; j++)
+            for (int j=0; j<finalVotes.size(); j++)
             {
                 if (max<calcTab[j])
                 {
@@ -83,7 +90,7 @@ public class dHondt {
             calcTab[maxInd] = calcNewValue(votes[maxInd], mandates[maxInd]);
         }
 
-        for (int i=0; i<groupCount; i++)
+        for (int i=0; i<finalVotes.size(); i++)
         {
             System.out.println("Partia " + (i+1) + " ma " + mandates[i] + " mandatow");
         }
